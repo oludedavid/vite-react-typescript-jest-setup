@@ -21,6 +21,7 @@ yarn add -D jest @types/jest @testing-library/react @testing-library/dom @testin
 ```
 
 ### Package explanations:
+
 - `jest` - Testing framework
 - `@types/jest` - TypeScript definitions for Jest
 - `@testing-library/*` - React testing utilities
@@ -34,13 +35,15 @@ yarn add -D jest @types/jest @testing-library/react @testing-library/dom @testin
 Create a global mocker for images and other file extensions.
 
 **Create directory and file:**
+
 ```
 test/__mocks__/fileMock.js
 ```
 
 **Add to `fileMock.js`:**
+
 ```javascript
-module.exports = 'test-file-stub';
+module.exports = "test-file-stub";
 ```
 
 ## Step 4: Update TypeScript Configuration (Optional)
@@ -58,6 +61,7 @@ To avoid TypeScript issues in test files, update your `tsconfig.app.json`:
 Create a `.babelrc` file in the project root to transpile JSX/TSX syntax:
 
 **Create `.babelrc`:**
+
 ```json
 {
   "presets": [
@@ -82,6 +86,7 @@ Add test scripts to your `package.json`:
 ```
 
 ### Script explanations:
+
 - `test` - Runs tests in watch mode
 - `cov` - Generates coverage report for source files
 
@@ -90,15 +95,13 @@ Add test scripts to your `package.json`:
 Create `jest.config.js` for additional configuration:
 
 ```javascript
-module.exports = {
-  testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  moduleNameMapping: {
-    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/test/__mocks__/fileMock.js',
-  },
-  transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
+export default {
+  testEnvironment: "jest-environment-jsdom",
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  moduleNameMapper: {
+    "\\.(gif|ttf|eot|svg|png)$": "<rootDir>/test/__mocks__/fileMock.js",
+    "\\.(css|less|sass|scss)$": "identity-obj-proxy",
+    "^@/(.*)$": "<rootDir>/src/$1",
   },
 };
 ```
@@ -108,7 +111,7 @@ module.exports = {
 Create `jest.setup.ts` in the project root:
 
 ```typescript
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 ```
 
 ## Step 9: Create Your First Test
@@ -116,11 +119,12 @@ import '@testing-library/jest-dom';
 Create a simple test file to verify the setup works:
 
 **Example: `src/utils/myHelper.test.ts`**
-```typescript
-import { add } from './myHelper';
 
-describe('myHelper', () => {
-  test('should add two numbers', () => {
+```typescript
+import { add } from "./myHelper";
+
+describe("myHelper", () => {
+  test("should add two numbers", () => {
     expect(add(2, 3)).toBe(5);
   });
 });
@@ -141,11 +145,13 @@ yarn cov
 ## Troubleshooting
 
 ### Common Issues:
+
 - **"Your test suite must contain at least one test"** - Ensure test files have actual `test()` or `it()` blocks
 - **Module import errors** - Check your `moduleNameMapping` in Jest config
 - **TypeScript errors** - Ensure `@types/jest` is installed and `jest.setup.ts` is included in tsconfig
 
 ### Project Structure:
+
 ```
 project-root/
 ├── src/
@@ -167,6 +173,7 @@ project-root/
 ## Success Indicators
 
 When everything is working correctly, you should see:
+
 - ✅ Tests running without errors
 - ✅ TypeScript compilation working
 - ✅ React components rendering in tests
