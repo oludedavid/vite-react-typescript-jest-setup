@@ -1,9 +1,10 @@
 import "./App.css";
+import MyComponent from "./components/MyComponent";
 
 function App() {
   return (
     <>
-      <h1 className="bg-red-500">I am a boy</h1>
+      <MyComponent />
     </>
   );
 }
