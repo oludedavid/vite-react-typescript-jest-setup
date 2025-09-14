@@ -1,15 +1,11 @@
-import "./App.css";
-import MyComponent from "./components/MyComponent";
-import { AlertTriangle } from "lucide-react";
+import { ThemeProvider } from "./components/providers/theme-provider";
 
-function App() {
+function App({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <h1 className="flex items-center gap-2 text-2xl font-bold text-primary">
-        <AlertTriangle className="size-6" />
-        Heads up: something needs your attention
-      </h1>
-      <MyComponent />
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        {children}
+      </ThemeProvider>
     </>
   );
 }
